@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employees</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div th:replace="header :: header"></div>
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Welcome to Employee Management</h1>
+
+        <!-- Formulario para buscar empleado -->
+        <form th:action="@{/employees}" method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="id" class="form-control" placeholder="Enter Employee ID" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Salary</th>
+                    <th>Annual Salary</th>
+                    <th>Age</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td>
+                        <a th:href="@{/employees/{id}(id=${employee.id})}" th:text="${employee.id}"></a>
+                    </td>
+                    <td th:text="${employee.employee_name}"></td>
+                    <td th:text="'$' + ${employee.employee_salary}"></td>
+                    <td th:text="'$' + ${employee.employeeAnualSalary}"></td>
+                    <td th:text="${employee.employee_age}"></td>
+                    <td>
+                        <img th:src="${employee.profile_image}" alt="Profile Image" class="img-fluid" style="max-width: 50px;" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
